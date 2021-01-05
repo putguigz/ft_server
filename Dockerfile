@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/05 17:31:11 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/05 18:03:40 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,10 @@ RUN wget https://fr.wordpress.org/wordpress-latest-fr_FR.zip && unzip wordpress-
 #RUN apt install -y php7.3
 #RUN apt install -y php-mysql
 #RUN apt install -y openssl
+
+COPY ./srcs/default /etc/nginx/sites-available/default
+COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
+COPY ./srcs/init.sh /init.sh 
 
 EXPOSE 80
 
