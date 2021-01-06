@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/06 12:50:12 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/06 17:49:39 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ RUN mv ./phpmyadmin ./var/www/html
 ##GERER FICHIERS A CHANGER CONFIG. && sitesAVAILABLE/default
 
 # WORDPRESS
-RUN wget https://fr.wordpress.org/wordpress-latest-fr_FR.zip && unzip wordpress-latest-fr_FR.zip -d /var/www && rm wordpress-latest-fr_FR.zip
+RUN cd /var/www/html && wget https://wordpress.org/latest.tar.gz && tar -xzvf latest.tar.gz && rm latest.tar.gz
+
 
 # LAUNCH EVERYTHING
 # RUN service nginx start && service mariadb start && service php7.3-fpm start
@@ -49,9 +50,8 @@ RUN wget https://fr.wordpress.org/wordpress-latest-fr_FR.zip && unzip wordpress-
 
 COPY ./srcs/default /etc/nginx/sites-available/default
 COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
-COPY ./srcs/init.sh /init.sh
 
-CMD bash init.sh && bash 
+CMD service nginx start && service mariadb start && service php7.3-fpm start && bash
 
 EXPOSE 80
 
