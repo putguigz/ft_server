@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/05 18:03:40 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/06 12:50:12 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ RUN wget https://fr.wordpress.org/wordpress-latest-fr_FR.zip && unzip wordpress-
 
 COPY ./srcs/default /etc/nginx/sites-available/default
 COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
-COPY ./srcs/init.sh /init.sh 
+COPY ./srcs/init.sh /init.sh
+
+CMD bash init.sh && bash 
 
 EXPOSE 80
 
