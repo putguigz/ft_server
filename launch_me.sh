@@ -5,6 +5,10 @@ reset=$'\033[0;39m'
 
 if [ "$(docker images | grep bonjourmonde | cut -d ' ' -f 1)" != "bonjourmonde" -o "$1" = "re" ]
 then
+	if [ "$1" = "re" ]
+	then
+		docker rmi -f bonjourmonde
+	fi
 	echo "container will now ${red}build${reset}"
 	sleep 2
 	echo "Building"
