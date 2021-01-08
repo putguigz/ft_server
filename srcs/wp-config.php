@@ -21,6 +21,7 @@
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 define( 'DB_NAME', 'wordpress' );
 
@@ -34,14 +35,21 @@ define( 'DB_NAME', 'database_wordpress' );
 =======
 define( 'DB_NAME', 'wordpress' );
 >>>>>>> Stashed changes
+=======
+define( 'DB_NAME', 'wordpress' );
+>>>>>>> Stashed changes
 
 /** MySQL database username */
 define( 'DB_USER', 'user' );
 
 /** MySQL database password */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 define( 'DB_PASSWORD', '1234' );
 >>>>>>> f0d4b58ff85b1ee33f346bbcb0d2901273d5e5f8
+=======
+define( 'DB_PASSWORD', 'password' );
+>>>>>>> Stashed changes
 =======
 define( 'DB_PASSWORD', 'password' );
 >>>>>>> Stashed changes
