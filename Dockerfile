@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/08 10:39:48 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/08 18:43:44 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,12 @@ RUN apt update && apt -y upgrade
 RUN	apt install -y vim && apt install -y wget && apt install -y curl && apt install -y unzip 
 
 # NGINX
-RUN	apt install -y nginx && service nginx start
+RUN	apt install -y nginx
+
+#OPENSSL
+WORKDIR /etc/ssl
+RUN apt install openssl
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/localhost.pem -keyout /etc/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=gpetit/CN=localhost"
 
 # MARIADB
 RUN apt-get install -y software-properties-common dirmngr apt-transport-https && apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' && add-apt-repository 'deb [arch=amd64] https://ftp.igh.cnrs.fr/pub/mariadb/repo/10.5/debian buster main' && apt update && apt install -y mariadb-server
@@ -45,13 +50,16 @@ RUN wget https://wordpress.org/latest.tar.gz && tar -xzvf latest.tar.gz && rm la
 COPY ./srcs/default /etc/nginx/sites-available/default
 COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
 COPY ./srcs/wp-config.php /var/www/html/wordpress/wp-config.php
-COPY ./srcs/wordpress-db-init.sql /tmp/wordpress-db-init.sql
+COPY ./srcs/init-db.sh /tmp/init-db.sh
+COPY ./srcs/wordpress.sql /tmp/wordpress.sql
+COPY ./srcs/images /var/www/html/wordpress/wp-content/uploads
 
-# COMMANDES AU DEMARRAGE 
-CMD service mariadb start && echo "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;" | mysql -u root \
-	&& echo "GRANT ALL ON wordpress.* TO 'user'@'localhost' IDENTIFIED BY 'password';" | mysql -u root \
-	&& echo "FLUSH PRIVILEGES;" | mysql -u root \
-	&& service nginx start && service php7.3-fpm start && bash
+WORKDIR /
+
+#UP SITE JUL
+RUN chmod 744 /tmp/init-db.sh
+
+CMD bash /tmp/init-db.sh && service nginx start && service php7.3-fpm start && bash
 
 EXPOSE 80
 
