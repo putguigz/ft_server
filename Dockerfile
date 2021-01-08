@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/08 10:14:44 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/08 10:39:48 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,21 +34,24 @@ WORKDIR /var/www/html
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz 
 RUN tar -xzvf phpMyAdmin-5.0.4-all-languages.tar.gz
 RUN rm phpMyAdmin-5.0.4-all-languages.tar.gz && mv phpMyAdmin-5.0.4-all-languages phpmyadmin 
-RUN mkdir /var/www/html/phpmyadmin/tmp && chmod 755 /var/www/html/phpmyadmin/tmp
+WORKDIR /var/www/html/phpmyadmin/tmp
+RUN chmod 777 /var/www/html/phpmyadmin/tmp
 
 # WORDPRESS
 WORKDIR /var/www/html
 RUN wget https://wordpress.org/latest.tar.gz && tar -xzvf latest.tar.gz && rm latest.tar.gz
 
+#IMPORTATION DES FICHIERS DE CONFIG
 COPY ./srcs/default /etc/nginx/sites-available/default
 COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
 COPY ./srcs/wp-config.php /var/www/html/wordpress/wp-config.php
 COPY ./srcs/wordpress-db-init.sql /tmp/wordpress-db-init.sql
 
+# COMMANDES AU DEMARRAGE 
 CMD service mariadb start && echo "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;" | mysql -u root \
 	&& echo "GRANT ALL ON wordpress.* TO 'user'@'localhost' IDENTIFIED BY 'password';" | mysql -u root \
 	&& echo "FLUSH PRIVILEGES;" | mysql -u root \
-	&& service nginx start && service mariadb restart && service php7.3-fpm start && bash
+	&& service nginx start && service php7.3-fpm start && bash
 
 EXPOSE 80
 
