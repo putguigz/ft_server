@@ -6,3 +6,8 @@ echo "GRANT ALL ON wordpress.* TO 'user'@'localhost' IDENTIFIED BY 'password';" 
 echo "FLUSH PRIVILEGES;" | mysql -u root
 
 mariadb -u root < /tmp/wordpress.sql
+
+if [ "$(echo $AUTOINDEX)" = "OFF" ]
+then 
+	sed -i 's/autoindex on;/autoindex off;/g' /etc/nginx/sites-available/default
+fi

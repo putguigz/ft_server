@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/09 02:30:50 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/09 19:22:54 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ RUN chmod 777 /var/www/html/phpmyadmin/tmp
 
 # WORDPRESS
 WORKDIR /var/www/html
-RUN wget https://wordpress.org/latest.tar.gz && tar -xzvf latest.tar.gz && rm latest.tar.gz
+RUN wget https://wordpress.org/latest.tar.gz && tar -xzvf latest.tar.gz && rm latest.tar.gz && rm index.nginx-debian.html
 
 #IMPORTATION DES FICHIERS DE CONFIG
 COPY ./srcs/default /etc/nginx/sites-available/default
