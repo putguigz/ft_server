@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/08 18:43:44 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/09 02:30:50 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ RUN	apt install -y vim && apt install -y wget && apt install -y curl && apt inst
 RUN	apt install -y nginx
 
 #OPENSSL
-WORKDIR /etc/ssl
+WORKDIR /etc/nginx/ssl
 RUN apt install openssl
-RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/localhost.pem -keyout /etc/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=gpetit/CN=localhost"
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/localhost.pem -keyout /etc/nginx/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=gpetit/CN=localhost"
 
 # MARIADB
 RUN apt-get install -y software-properties-common dirmngr apt-transport-https && apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' && add-apt-repository 'deb [arch=amd64] https://ftp.igh.cnrs.fr/pub/mariadb/repo/10.5/debian buster main' && apt update && apt install -y mariadb-server
