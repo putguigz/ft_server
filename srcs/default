@@ -1,11 +1,12 @@
+
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
 	# SSL configuration
 	#
-	#listen 443 ssl default_server;
-	#listen [::]:443 ssl default_server;
+	listen 443 ssl;
+	listen [::]:443 ssl;
 	#
 	# Note: You should disable gzip for SSL traffic.
 	# See: https://bugs.debian.org/773332
@@ -17,11 +18,14 @@ server {
 	# Don't use them in a production server!
 	#
 	# include snippets/snakeoil.conf;
-
+	
+	ssl_certificate /etc/nginx/ssl/localhost.pem;
+	ssl_certificate_key /etc/nginx/ssl/localhost.key;
+	
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
-	index index.html index.htm index.nginx-debian.html;
+	index index.php index.html index.htm index.nginx-debian.html;
 
 	server_name _;
 
