@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/29 17:08:49 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/09 19:22:54 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/11 12:15:26 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,4 +62,5 @@ RUN chmod 744 /tmp/init-db.sh
 CMD bash /tmp/init-db.sh && service nginx start && service php7.3-fpm start && bash
 
 EXPOSE 80
+EXPOSE 443
 
