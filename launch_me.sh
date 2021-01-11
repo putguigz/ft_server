@@ -10,8 +10,9 @@ then
 	echo "Building"
 	docker build -t bonjourmonde .
 else
-	echo "container already build. ${red}running will now start.${reset}"
+	echo "container already built. ${red}running will now start.${reset}"
 	sleep 2
+	echo "Running"
 fi
 
 docker run -it -p 80:80 -p 443:443 -e AUTOINDEX=ON --rm --name server bonjourmonde
